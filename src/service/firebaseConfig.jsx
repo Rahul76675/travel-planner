@@ -1,11 +1,9 @@
-// Import the functions you need from the SDKs you need
+// Import Firebase SDK
 import { initializeApp } from "firebase/app";
-import {getFirestore} from 'firebase/firestore'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// ✅ Your Firebase project configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBLtuliEkAqGXSe5RoZUFj1hJSkMI9U-CQ",
   authDomain: "ai-trip-planner-b16ba.firebaseapp.com",
@@ -16,6 +14,31 @@ const firebaseConfig = {
   measurementId: "G-DS3935ZN33"
 };
 
-// Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+// ✅ Initialize Firebase
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const provider = new GoogleAuthProvider();
 export const db = getFirestore(app);
+
+// ✅ Google login function
+export const signInWithGoogle = async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    console.log("User logged in:", user);
+    return user;
+  } catch (error) {
+    console.error("Google Sign-In Error:", error);
+    alert(error.message);
+  }
+};
+
+// ✅ Logout function
+export const logout = async () => {
+  try {
+    await signOut(auth);
+    console.log("User logged out");
+  } catch (error) {
+    console.error("Logout Error:", error);
+  }
+};
