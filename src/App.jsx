@@ -1,16 +1,12 @@
-import { useState } from 'react'
-import './App.css'
-import Hero from './components/custom/Hero'
+import React from "react";
+import Login from "./Login";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      {/* Hero */}
-      <Hero/>
-    </>
-  )
+    <div>
+      <Login />
+    </div>
+  );
 }
 
-export default App
+export default App;
